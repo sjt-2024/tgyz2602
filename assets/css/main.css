@@ -137,20 +137,12 @@ s-bottom-sheet>div {
         grid-template-columns: auto;
     }
 }
-#home-cards s-card {
+#home-cards>s-card {
     margin: 10px;
     padding: 10px;
     min-width: min(300px, calc(100% - 20px));
     min-height: 150px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
-#home-cards s-card.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
 #card-info {
     min-width: min(450px, calc(100% - 20px)) !important;
     min-height: 200px !important;
