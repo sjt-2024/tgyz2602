@@ -9,14 +9,12 @@ var Dialog = window.customElements.get('s-dialog');
  * @param {number} minNum 最小数
  * @author lingbopro
  */
-function randint(maxNum, minNum){
+function randint(maxNum, minNum) {
     if (typeof minNum === 'number') {
-        return parseInt(Math.random()*(maxNum-minNum+1)+minNum,10);
-    }
-    else if (typeof maxNum === 'number') {
-        return parseInt(Math.random()*minNum+1,10);
-    }
-    else {
+        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+    } else if (typeof maxNum === 'number') {
+        return parseInt(Math.random() * minNum + 1, 10);
+    } else {
         throw new TypeError('minNum and maxNum must be numbers.');
     }
 }
@@ -30,15 +28,21 @@ document.addEventListener('DOMContentLoaded', function () {
         return;
     }
     let mainTabEl = document.getElementById('main-tab');
-    let dom = ''
+    let dom = '';
     data.semesters.forEach(function (current, index) {
         dom += `
-<s-tab-item selected="${index == 0 ? 'true' : 'false'}">
+<s-tab-item>
     <div slot="text">${current.name}</div>
-</s-tab-item>`
+</s-tab-item>`;
     });
     mainTabEl.innerHTML = dom;
-    mainTabEl.children[0].selected = true;
+    // 也不知道为啥样式有问题，因此手动模拟切换
+    if (mainTabEl.children.length >= 1) {
+        mainTabEl.children[1].click();
+        window.setTimeout(function () {
+            mainTabEl.children[0].click();
+        }, 100);
+    }
     mainTabChanged();
     // window.setInterval(function (){
     //     coolButtons(document.querySelector('#tab-content>.buttons'));
@@ -75,18 +79,24 @@ function pictureViewDialogClosed() {
 function mainTabChanged() {
     let tabIndex = document.getElementById('main-tab').selectedIndex;
     let tabContentEl = document.getElementById('tab-content');
+    let buttonsEl = document.getElementById('content-buttons');
     currentSemester = tabIndex >= 0 ? tabIndex : 0;
     let dom = '';
-    data.semesters[currentSemester].pictures.forEach(function (current, index) {
-        dom += `
+    if (data.semesters[currentSemester].pictures.length > 0) {
+        data.semesters[currentSemester].pictures.forEach(function (current, index) {
+            dom += `
 <s-ripple onclick="viewPicture(${index})"">
     <div class="headline">${current.title}</div>
     <div class="description">${current.description}</div>
-</s-ripple>`
-    });
-    tabContentEl.innerHTML = `
-<div class="buttons">${dom}</div>`;
-    coolButtons(document.querySelector('#tab-content>.buttons'));
+</s-ripple>`;
+        });
+        buttonsEl.innerHTML = dom;
+        tabContentEl.classList.remove('empty');
+        coolButtons(document.getElementById('content-buttons'));
+    } else {
+        buttonsEl.innerHTML = '';
+        tabContentEl.classList.add('empty');
+    }
 }
 
 var fullscreenLoadingTip = {
@@ -108,8 +118,8 @@ var fullscreenLoadingTip = {
         if (typeof html === 'string') {
             document.getElementById('fullscreen-loading-tip').innerHTML = html;
         }
-    }
-}
+    },
+};
 
 function coolButtons(buttonsEl) {
     let children = buttonsEl.children;
@@ -124,10 +134,12 @@ function coolButtons(buttonsEl) {
         color: var(--s-color-primary, #5256a9);`,
         `background: none;
         color: var(--s-color-primary, #5256a9);
-        padding: 0px 16px;`
+        padding: 0px 16px;`,
     ];
     for (let i = 0; i < children.length; i++) {
-        let style = styles[randint(0, styles.length - 1)];
-        children[i].setAttribute('style', style);
+        if (children[i].tagName.toLowerCase() == 's-ripple') {
+            let style = styles[randint(0, styles.length - 1)];
+            children[i].setAttribute('style', style);
+        }
     }
 }

@@ -11,6 +11,11 @@ html, body {
     display: none;
 }
 
+s-bottom-sheet>div {
+    padding: 10px;
+    min-height: 200px;
+}
+
 #tooltips {
     position: fixed;
     top: 0;
@@ -47,13 +52,21 @@ html, body {
 #main-tab * {
     font-size: large;
 }
-#tab-content .buttons {
+#tab-content #none-text {
+    text-align: center;
+    color: var(--s-color-secondary);
+    padding: 10px;
+}
+#tab-content:not(.empty) #none-text {
+    display: none;
+}
+#content-buttons {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     margin: 10px;
 }
-#tab-content .buttons s-ripple {
+#content-buttons s-ripple {
     margin: 10px 4px;
     padding: 30px 40px;
     min-width: 300px;
@@ -62,7 +75,7 @@ html, body {
     box-sizing: border-box;
     transition-duration: 0.5s;
 }
-#tab-content .buttons s-ripple .headline {
+#content-buttons s-ripple .headline {
     font-size: large;
     font-weight: bold;
 }
