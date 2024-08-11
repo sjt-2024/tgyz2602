@@ -24,7 +24,7 @@
             <s-appbar>
                 <div slot="headline">江西省铜鼓中学初2602班</div>
                 <s-tooltip slot="action">
-                    <s-icon-button slot="trigger">
+                    <s-icon-button slot="trigger" onclick="window.open('https://github.com/sjt-2024/tgyz2602')">
                         <s-icon>
                             <svg viewBox="0 0 1024 1024">
                                 <path
@@ -50,7 +50,7 @@
                 </div>
             </s-scroll-view>
             <div id="tooltips">
-                <s-dialog id="picture-view-dialog" size="full">
+                <s-dialog id="picture-view-dialog" size="full" ondismiss="pictureViewDialogClosed()">
                     <div slot="headline" id="picture-view-title">图片查看</div>
                     <div slot="text" id="picture-view-content">
                         <div id="picture-view-image-wrapper">
@@ -58,9 +58,10 @@
                         </div>
                         <div id="picture-view-description"></div>
                     </div>
-                    <s-button slot="action" type="text">下载</s-button>
+                    <s-button slot="action" type="text" onclick="downloadPicture(); event.stopPropagation()">下载</s-button>
                     <s-button slot="action" type="text">完成</s-button>
                 </s-dialog>
+                <a id="download-link" href="" download target="_blank">114514</a>
             </div>
         </s-page>
         <script defer src="https://unpkg.com/sober@0.2.21/dist/sober.min.js"></script>

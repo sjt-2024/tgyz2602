@@ -22,6 +22,7 @@ function randint(maxNum, minNum){
 }
 
 var currentSemester = 0;
+var currentPicture = -1;
 
 document.addEventListener('DOMContentLoaded', function () {
     if (!(Snackbar && Dialog)) {
@@ -53,8 +54,22 @@ function viewPicture(id) {
         document.getElementById('picture-view-image').src = './img/' + pictureInfo.filename;
         document.getElementById('picture-view-image').alt = pictureInfo.title;
         document.getElementById('picture-view-description').innerText = pictureInfo.description;
+        currentPicture = id;
     }
     dialogEl.show();
+}
+
+function downloadPicture() {
+    let picture = data.semesters[currentSemester].pictures[currentPicture];
+    let src = document.getElementById('picture-view-image').src;
+    let linkEl = document.getElementById('download-link');
+    linkEl.href = src;
+    linkEl.download = `${picture.title}`;
+    linkEl.click();
+}
+
+function pictureViewDialogClosed() {
+    currentPicture = -1;
 }
 
 function mainTabChanged() {
