@@ -19,6 +19,8 @@ function randint(maxNum, minNum) {
     }
 }
 
+var pageEl = document.querySelector('s-page');
+
 var currentSemester = 0;
 var currentPicture = -1;
 
@@ -27,30 +29,68 @@ document.addEventListener('DOMContentLoaded', function () {
         fullscreenLoadingTip.open('组件库未成功加载。请检查网络连接，然后重试');
         return;
     }
-    let mainTabEl = document.getElementById('main-tab');
-    let dom = '';
-    data.semesters.forEach(function (current, index) {
-        dom += `
+    let navEl = document.getElementById('nav');
+    for (let element of navEl.children) {
+        if (element.tagName.toLowerCase() == 's-ripple') {
+            element.addEventListener('click', function () {
+                let pageName = element.dataset.page;
+                gotoPage(pageName);
+            });
+        }
+    }
+    navEl.children[0].click();
+    fullscreenLoadingTip.close();
+});
+
+function gotoPage(name) {
+    let pagesContainerEl = document.getElementById('pages-container');
+    for (let element of pagesContainerEl.children) {
+        element.classList.remove('active');
+    }
+    let navEl = document.getElementById('nav');
+    for (let element of navEl.children) {
+        if (element.tagName.toLowerCase() == 's-ripple') {
+            if (element.dataset.page == name) {
+                element.classList.add('checked');
+            }
+            else {
+                element.classList.remove('checked');
+            }
+        }
+    }
+    document.getElementById('page-' + name).classList.add('active');
+    // 单独处理某些页面
+    switch (name) {
+        case 'home':
+            document.getElementById('card-info-title').innerText = data.sidebar.title;
+            document.getElementById('card-info-content').innerText = data.sidebar.content;
+            break;
+        case 'pictures':
+            let mainTabEl = document.getElementById('main-tab');
+            let dom = '';
+            data.semesters.forEach(function (current, index) {
+                dom += `
 <s-tab-item>
     <div slot="text">${current.name}</div>
 </s-tab-item>`;
-    });
-    mainTabEl.innerHTML = dom;
-    // 也不知道为啥样式有问题，因此手动模拟切换
-    if (mainTabEl.children.length >= 1) {
-        mainTabEl.children[1].click();
-        window.setTimeout(function () {
-            mainTabEl.children[0].click();
-        }, 100);
+            });
+            mainTabEl.innerHTML = dom;
+            // 也不知道为啥样式有问题，因此手动模拟切换
+            if (mainTabEl.children.length >= 1) {
+                mainTabEl.children[1].click();
+                window.setTimeout(function () {
+                    mainTabEl.children[0].click();
+                }, 100);
+            }
+            mainTabChanged();
+            // window.setInterval(function (){
+            //     coolButtons(document.querySelector('#tab-content>.buttons'));
+            // }, 1000);
+            break;
+        default:
+            break;
     }
-    document.getElementById('sidebar-title').innerText = data.sidebar.title;
-    document.getElementById('sidebar-content').innerText = data.sidebar.content;
-    mainTabChanged();
-    // window.setInterval(function (){
-    //     coolButtons(document.querySelector('#tab-content>.buttons'));
-    // }, 1000);
-    fullscreenLoadingTip.close();
-});
+}
 
 function viewPicture(id) {
     let dialogEl = document.getElementById('picture-view-dialog');
@@ -122,6 +162,23 @@ var fullscreenLoadingTip = {
         }
     },
 };
+
+function themePickerChanged() {
+    let themePickerEl = document.getElementById('theme-picker');
+    switch (themePickerEl.selectedIndex) {
+        case 0:
+            pageEl.theme = 'auto';
+            break;
+        case 1:
+            pageEl.theme = 'light';
+            break;
+        case 2:
+            pageEl.theme = 'dark';
+            break;
+        default:
+            break;
+    }
+}
 
 function toggleSidebar() {
     document.getElementById('sidebar-drawer').toggle('start')

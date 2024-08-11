@@ -11,6 +11,9 @@ html, body {
     display: none;
 }
 
+s-card>[slot='headline'] {
+    color: var(--s-color-primary);
+}
 s-bottom-sheet>div {
     padding: 10px;
     min-height: 200px;
@@ -54,15 +57,95 @@ s-bottom-sheet>div {
     display: flex;
     flex-direction: column;
 }
-#sidebar-title {
-    font-size: x-large;
+#nav {
+    flex: 1;
+}
+#nav>s-ripple {
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: var(--s-color-on-surface);
+    padding: 0 24px;
+    font-size: .875rem;
+    border-radius: 28px;
+    margin: 8px;
+    white-space: nowrap;
+}
+#nav>s-ripple.checked {
+    color: var(--s-color-primary);
+    background: var(--s-color-secondary-container);
+    color: var(--s-color-on-secondary-container);
+}
+#nav>s-ripple>s-icon {
+    margin-right: 10px;
+}
+#nav-buttons-container {
+    display: flex;
+    flex-direction: row;
+    padding: 8px;
+}
+#nav-buttons-container>* {
+    margin: 5px;
+}
+
+#main-content {
+    display: flex;
+    flex-direction: column;
+}
+#pages-container {
+    overflow: hidden;
+    flex: 1;
+}
+#pages-container>* {
+    height: 100%;
+}
+#pages-container>*:not(.active) {
+    display: none;
+}
+
+#big-title {
+    font-size: xx-large;
     font-weight: bold;
     color: var(--s-color-primary);
-    padding-bottom: 10px;
+    padding: 40px 60px;
+    text-align: center;
 }
-#sidebar-content {
-    flex: 1;
-    overflow-y: auto;
+#home-cards {
+    display: grid;
+    columns: auto;
+    justify-items: stretch;
+    align-items: start;
+    margin: 10px;
+}
+@media screen and (min-width: 1024px) {
+    #home-cards {
+        grid-template-columns: auto auto auto auto;
+    }
+}
+@media screen and (max-width: 1024px) {
+    #home-cards {
+        grid-template-columns: auto auto auto;
+    }
+}
+@media screen and (max-width: 768px) {
+    #home-cards {
+        grid-template-columns: auto auto;
+    }
+}
+@media screen and (max-width: 480px) {
+    #home-cards {
+        grid-template-columns: auto;
+    }
+}
+#home-cards>s-card {
+    margin: 10px;
+    padding: 10px;
+    min-width: min(300px, calc(100% - 20px));
+    min-height: 150px;
+}
+#card-info {
+    min-width: min(450px, calc(100% - 20px)) !important;
+    min-height: 200px !important;
 }
 
 #main-tab * {
