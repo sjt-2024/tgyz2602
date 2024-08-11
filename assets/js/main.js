@@ -40,6 +40,11 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     navEl.children[0].click();
     fullscreenLoadingTip.close();
+
+    // Trigger the fade-in animation
+    document.querySelectorAll('#home-cards s-card').forEach(function(card) {
+        card.classList.add('active');
+    });
 });
 
 function gotoPage(name) {
