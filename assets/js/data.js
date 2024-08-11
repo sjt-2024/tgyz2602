@@ -5,21 +5,22 @@ var data = {
             pictures: [
                 {
                     title: 'Test Picture 1',
-                    filename: 'test_picture_1.png',
+                    filename: 'test_picture_1.png', // Ensure this path is correct
                     description: 'This is a test picture.'
                 }
             ]
-        },{
+        },
+        {
             name: '八年级',
             pictures: [
                 {
                     title: 'Test Picture 2',
-                    filename: 'test_picture_1.png',
+                    filename: 'test_picture_2.png', // Ensure this path is correct
                     description: 'This is a test picture too.'
                 },
                 {
                     title: 'Test Picture 3',
-                    filename: 'test_picture_1.png',
+                    filename: 'test_picture_3.png', // Ensure this path is correct
                     description: 'This is a test picture either.'
                 }
             ]

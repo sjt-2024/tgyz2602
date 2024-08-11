@@ -3,12 +3,6 @@
 var Snackbar = window.customElements.get('s-snackbar');
 var Dialog = window.customElements.get('s-dialog');
 
-/**
- * 生成从minNum到maxNum的随机数
- * @param {number} maxNum 最大数
- * @param {number} minNum 最小数
- * @author lingbopro
- */
 function randint(maxNum, minNum) {
     if (typeof minNum === 'number') {
         return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
@@ -41,7 +35,6 @@ document.addEventListener('DOMContentLoaded', function () {
     navEl.children[0].click();
     fullscreenLoadingTip.close();
 
-    // Trigger the fade-in animation
     document.querySelectorAll('#home-cards s-card').forEach(function(card) {
         card.classList.add('active');
     });
@@ -64,7 +57,6 @@ function gotoPage(name) {
         }
     }
     document.getElementById('page-' + name).classList.add('active');
-    // 单独处理某些页面
     switch (name) {
         case 'home':
             document.getElementById('card-info-title').innerText = data.sidebar.title;
@@ -107,21 +99,25 @@ function viewPicture(id) {
         document.getElementById('picture-view-description').innerText = pictureInfo.description;
         currentPicture = id;
     }
-    dialogEl.show();
+    dialogEl.show();  // Use show() to display the dialog
+    hideSidebar();  // Hide the sidebar when a picture is viewed
 }
 
-function downloadPicture() {
-    let picture = data.semesters[currentSemester].pictures[currentPicture];
-    let src = document.getElementById('picture-view-image').src;
-    let linkEl = document.getElementById('download-link');
-    linkEl.href = src;
-    linkEl.download = `${picture.title}`;
-    linkEl.click();
+function hideSidebar() {
+    let sidebarEl = document.getElementById('sidebar');
+    sidebarEl.style.display = 'none';  // Hide the sidebar by setting display to 'none'
+}
+
+function showSidebar() {
+    let sidebarEl = document.getElementById('sidebar');
+    sidebarEl.style.display = '';  // Show the sidebar again by resetting the display property
 }
 
 function pictureViewDialogClosed() {
     currentPicture = -1;
+    showSidebar();  // Show the sidebar again when the picture dialog is closed
 }
+
 
 function mainTabChanged() {
     let tabIndex = document.getElementById('main-tab').selectedIndex;
@@ -132,7 +128,7 @@ function mainTabChanged() {
     if (data.semesters[currentSemester].pictures.length > 0) {
         data.semesters[currentSemester].pictures.forEach(function (current, index) {
             dom += `
-<s-ripple onclick="viewPicture(${index})"">
+<s-ripple onclick="viewPicture(${index})">
     <div class="headline">${current.title}</div>
     <div class="description">${current.description}</div>
 </s-ripple>`;
@@ -186,7 +182,8 @@ function themePickerChanged() {
 }
 
 function toggleSidebar() {
-    document.getElementById('sidebar-drawer').toggle('start')
+    let sidebarEl = document.getElementById('sidebar-drawer');
+    sidebarEl.toggleAttribute('hidden');
 }
 
 function coolButtons(buttonsEl) {
