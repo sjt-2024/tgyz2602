@@ -121,23 +121,23 @@
                             </s-scroll-view>
                         </div>
                     </div>
-                    <!-- 用户不可见的东西 -->
-                    <div id="tooltips">
-                        <s-dialog id="picture-view-dialog" size="full" ondismiss="pictureViewDialogClosed()">
-                            <div slot="headline" id="picture-view-title">图片查看</div>
-                            <div slot="text" id="picture-view-content">
-                                <div id="picture-view-image-wrapper">
-                                    <img id="picture-view-image" src="" alt="Image" />
-                                </div>
-                            <div id="picture-view-description"></div>
-                            </div>
-                            <s-button slot="action" type="text" onclick="downloadPicture(); event.stopPropagation()">下载</s-button>
-                            <s-button slot="action" type="text">完成</s-button>
-                        </s-dialog>
-                        <a id="download-link" href="" download target="_blank">114514</a>
-                    </div>
                 </div>
             </s-drawer>
+            <!-- 用户不可见的东西 -->
+            <div id="tooltips">
+                <s-dialog id="picture-view-dialog" size="full" ondismiss="pictureViewDialogClosed()">
+                    <div slot="headline" id="picture-view-title">图片查看</div>
+                    <div slot="text" id="picture-view-content">
+                        <div id="picture-view-image-wrapper">
+                            <img id="picture-view-image" src="" alt="Image" />
+                        </div>
+                    <div id="picture-view-description"></div>
+                    </div>
+                    <s-button slot="action" type="text" onclick="downloadPicture(); event.stopPropagation()">下载</s-button>
+                    <s-button slot="action" type="text">完成</s-button>
+                </s-dialog>
+                <a id="download-link" href="" download target="_blank">114514</a>
+            </div>
         </s-page>
         <script defer src="https://unpkg.com/sober@0.2.21/dist/sober.min.js"></script>
         <script defer src="./assets/js/data.js"></script>
