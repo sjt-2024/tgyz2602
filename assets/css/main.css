@@ -49,6 +49,22 @@ s-bottom-sheet>div {
     z-index: -1;
 }
 
+#sidebar {
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+#sidebar-title {
+    font-size: x-large;
+    font-weight: bold;
+    color: var(--s-color-primary);
+    padding-bottom: 10px;
+}
+#sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+}
+
 #main-tab * {
     font-size: large;
 }

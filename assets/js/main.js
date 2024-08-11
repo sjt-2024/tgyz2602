@@ -43,6 +43,8 @@ document.addEventListener('DOMContentLoaded', function () {
             mainTabEl.children[0].click();
         }, 100);
     }
+    document.getElementById('sidebar-title').innerText = data.sidebar.title;
+    document.getElementById('sidebar-content').innerText = data.sidebar.content;
     mainTabChanged();
     // window.setInterval(function (){
     //     coolButtons(document.querySelector('#tab-content>.buttons'));
@@ -120,6 +122,10 @@ var fullscreenLoadingTip = {
         }
     },
 };
+
+function toggleSidebar() {
+    document.getElementById('sidebar-drawer').toggle('start')
+}
 
 function coolButtons(buttonsEl) {
     let children = buttonsEl.children;

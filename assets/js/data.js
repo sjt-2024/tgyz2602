@@ -28,5 +28,9 @@ var data = {
             name: '九年级',
             pictures: []
         }
-    ]
+    ],
+    sidebar: {
+        title: '班级简介',
+        content: '测试文本测试文本\n使用转义字符换行\n\nHello World!'
+    }
 };
