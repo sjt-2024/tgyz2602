@@ -206,3 +206,7 @@ function coolButtons(buttonsEl) {
         }
     }
 }
+
+function showDeveloperList() {
+    gotoPage('developers');
+}

@@ -10,17 +10,6 @@
     </head>
     <body>
         <s-page theme="auto">
-            <div id="fullscreen-loading-tip">
-                <noscript>
-                    <h1>您的浏览器不支持 JavaScript，请在启用 JavaScript 后重试。</h1>
-                    <p>请尝试以下方法：</p>
-                    <ol>
-                        <li>检查您的浏览器设置，确保 JavaScript 已启用。</li>
-                        <li>尝试使用 Chrome、Firefox、Safari 等主流浏览器。</li>
-                    </ol>
-                </noscript>
-                <div>加载中...</div>
-            </div>
             <s-drawer id="sidebar-drawer">
                 <div slot="start" id="sidebar">
                     <s-scroll-view id="nav">
@@ -82,6 +71,14 @@
                                         </s-icon>
                                         GitHub
                                     </s-button>
+                                    <s-button type="filled-tonal" onclick="showDeveloperList()">
+                                        <s-icon xmlns="http://www.w3.org/2000/svg" slot="start">
+                                            <svg  viewBox="0 -960 960 960">
+                                                <path d="M400-480q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM80-160v-112q0-33 17-62t47-44q51-26 115-44t141-18h14q6 0 12 2-8 18-13.5 37.5T404-360h-4q-71 0-127.5 18T180-306q-9 5-14.5 14t-5.5 20v32h252q6 21 16 41.5t22 38.5H80Zm560 40-12-60q-12-5-22.5-10.5T584-204l-58 18-40-68 46-40q-2-14-2-26t2-26l-46-40 40-68 58 18q11-8 21.5-13.5T628-460l12-60h80l12 60q12 5 22.5 11t21.5 15l58-20 40 70-46 40q2 12 2 25t-2 25l46 40-40 68-58-18q-11 8-21.5 13.5T732-180l-12 60h-80Zm40-120q33 0 56.5-23.5T760-320q0-33-23.5-56.5T680-400q-33 0-56.5 23.5T600-320q0 33 23.5 56.5T680-240ZM400-560q33 0 56.5-23.5T480-640q0-33-23.5-56.5T400-720q-33 0-56.5 23.5T320-640q0 33 23.5 56.5T400-560Zm0-80Zm12 400Z"></path>
+                                              </svg>
+                                        </s-icon>
+                                        开发者名单
+                                    </s-button>
                                 </div>
                             </s-bottom-sheet>
                             更多信息
@@ -119,6 +116,24 @@
                                     <s-ripple></s-ripple>
                                 </div>
                             </s-scroll-view>
+                        </div>
+                        <!-- 开发者名单 -->
+                        <div id="page-developers" class="developer-list-page">
+                            <div id="developer-list-title">开发者名单</div>
+                            <div id="developer-list">
+                                <div class="developer">
+                                    <div class="name">lingbopro</div>
+                                    <div class="role">主开发,设计</div>
+                                </div>
+                                <div class="developer">
+                                    <div class="name">sjt-2024</div>
+                                    <div class="role">策划</div>
+                                </div>
+                                <div class="developer">
+                                    <div class="name">Minemetero</div>
+                                    <div class="role">打杂,情绪支持</div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
