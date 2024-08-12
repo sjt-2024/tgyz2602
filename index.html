@@ -108,12 +108,21 @@
                             </s-tab>
                             <s-scroll-view id="tab-content">
                                 <div id="none-text">-- NONE --</div>
-                                <div id="content-buttons">
-                                    <s-ripple>
-                                        <div class="headline">test</div>
-                                        <div class="description">test</div>
-                                    </s-ripple>
-                                    <s-ripple></s-ripple>
+                                <div id="pictures">
+                                    <s-card class="picture-group" type="outlined">
+                                        <s-ripple class="picture-group-title">
+                                            <div class="headline">title</div>
+                                            <s-icon class="icon" type="chevron_down"></s-icon>
+                                        </s-ripple>
+                                        <div class="sub-pictures-container">
+                                            <div class="sub-pictures">
+                                                <s-ripple>
+                                                    <div class="headline">test</div>
+                                                    <div class="description">test</div>
+                                                </s-ripple>
+                                            </div>
+                                        </div>
+                                    </s-card>
                                 </div>
                             </s-scroll-view>
                         </div>

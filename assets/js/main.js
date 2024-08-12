@@ -49,7 +49,8 @@ function deleteUrlParam(key) {
 
 var pageEl = document.querySelector('s-page');
 
-var currentSemester = 0;
+var currentTab = 0;
+var currentPictureGroup = -1;
 var currentPicture = -1;
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -96,15 +97,15 @@ function gotoPage(name) {
     // 单独处理某些页面
     switch (name) {
         case 'home':
-            document.getElementById('card-info-title').innerText = data.sidebar.title;
-            document.getElementById('card-info-content').innerText = data.sidebar.content;
+            document.getElementById('card-info-title').innerText = data.modules.summary.title;
+            document.getElementById('card-info-content').innerText = data.modules.summary.content;
             break;
         case 'pictures':
             let mainTabEl = document.getElementById('main-tab');
             let dom = '';
-            data.semesters.forEach(function (current, index) {
+            data.modules.pictures.tabs.forEach(function (current, index) {
                 dom += `
-<s-tab-item>
+<s-tab-item id="tab-${index}">
     <div slot="text">${current.name}</div>
 </s-tab-item>`;
             });
@@ -126,21 +127,26 @@ function gotoPage(name) {
     }
 }
 
-function viewPicture(id) {
+function viewPicture(groupId, pictureId) {
     let dialogEl = document.getElementById('picture-view-dialog');
-    let pictureInfo = data.semesters[currentSemester].pictures[id];
+    let pictureInfo = data.modules.pictures.tabs[currentTab].groups[groupId].pictures[pictureId];
     if (pictureInfo) {
+        let src =
+            pictureInfo.filename.startsWith('http://') || pictureInfo.filename.startsWith('https://')
+                ? pictureInfo.filename
+                : './img/' + pictureInfo.filename;
         document.getElementById('picture-view-title').innerText = pictureInfo.title;
-        document.getElementById('picture-view-image').src = './img/' + pictureInfo.filename;
+        document.getElementById('picture-view-image').src = src;
         document.getElementById('picture-view-image').alt = pictureInfo.title;
         document.getElementById('picture-view-description').innerText = pictureInfo.description;
-        currentPicture = id;
+        currentPictureGroup = groupId;
+        currentPicture = pictureId;
     }
     dialogEl.show();
 }
 
 function downloadPicture() {
-    let picture = data.semesters[currentSemester].pictures[currentPicture];
+    let picture = data.modules.pictures.tabs[currentTab].groups[currentPictureGroup].pictures[currentPicture];
     let src = document.getElementById('picture-view-image').src;
     let linkEl = document.getElementById('download-link');
     linkEl.href = src;
@@ -150,28 +156,54 @@ function downloadPicture() {
 
 function pictureViewDialogClosed() {
     currentPicture = -1;
+    currentPictureGroup = -1;
 }
 
 function mainTabChanged() {
     let tabIndex = document.getElementById('main-tab').selectedIndex;
     let tabContentEl = document.getElementById('tab-content');
-    let buttonsEl = document.getElementById('content-buttons');
-    currentSemester = tabIndex >= 0 ? tabIndex : 0;
-    let dom = '';
-    if (data.semesters[currentSemester].pictures.length > 0) {
-        data.semesters[currentSemester].pictures.forEach(function (current, index) {
-            dom += `
-<s-ripple onclick="viewPicture(${index})"">
-    <div class="headline">${current.title}</div>
-    <div class="description">${current.description}</div>
+    let picturesEl = document.getElementById('pictures');
+    currentTab = tabIndex >= 0 ? tabIndex : 0;
+    currentPictureGroup = -1;
+    let groupsDom = '';
+    if (data.modules.pictures.tabs[currentTab].groups.length > 0) {
+        data.modules.pictures.tabs[currentTab].groups.forEach(function (currentGroup, groupIndex) {
+            let innerDom = '';
+            currentGroup.pictures.forEach(function (currentPicture, pictureIndex) {
+                innerDom += `
+<s-ripple class="picture" id="picture-${groupIndex}-${pictureIndex}" onclick="viewPicture(${groupIndex},${pictureIndex})"">
+    <div class="headline">${currentPicture.title}</div>
+    <div class="description">${currentPicture.description}</div>
 </s-ripple>`;
+            });
+            groupsDom += `
+<s-card class="picture-group" id="group-${groupIndex}" type="outlined">
+    <s-ripple class="picture-group-title" onclick="toggleGroupFold(${groupIndex})">
+        <div class="headline">${currentGroup.title}</div>
+        <s-icon class="icon" type="chevron_down"></s-icon>
+    </s-ripple>
+    <div class="sub-pictures-container">
+        <div class="sub-pictures">${innerDom}</div>
+    </div>
+</s-card>`;
         });
-        buttonsEl.innerHTML = dom;
+        picturesEl.innerHTML = groupsDom;
         tabContentEl.classList.remove('empty');
-        coolButtons(document.getElementById('content-buttons'));
+        coolButtons(document.getElementById('pictures'));
     } else {
-        buttonsEl.innerHTML = '';
+        picturesEl.innerHTML = '';
         tabContentEl.classList.add('empty');
+    }
+}
+
+function toggleGroupFold(groupId) {
+    let groupEl = document.getElementById('group-' + groupId);
+    groupEl.classList.toggle('open');
+    if (groupEl.classList.contains('open')) {
+        groupEl.querySelector('.icon').type = 'chevron_up';
+    }
+    else {
+        groupEl.querySelector('.icon').type = 'chevron_down';
     }
 }
 
@@ -222,7 +254,7 @@ function toggleSidebar() {
 }
 
 function coolButtons(buttonsEl) {
-    let children = buttonsEl.children;
+    let children = buttonsEl.querySelector('.picture');
     let styles = [
         `background: var(--s-color-surface-container-low, #f6f2f7);
         color: var(--s-color-primary, #5256a9);

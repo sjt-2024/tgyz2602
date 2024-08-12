@@ -16,7 +16,7 @@ s-card>[slot='headline'] {
 }
 s-bottom-sheet>div {
     padding: 10px;
-    min-height: 200px;
+    min-height: 400px;
 }
 .big-title {
     font-size: xx-large;
@@ -109,6 +109,9 @@ s-bottom-sheet>div {
 #pages-container>*:not(.active) {
     display: none;
 }
+#info-sheet>div {
+    min-height: 500px;
+}
 
 #home-cards {
     display: grid;
@@ -159,13 +162,48 @@ s-bottom-sheet>div {
 #tab-content:not(.empty) #none-text {
     display: none;
 }
-#content-buttons {
+#pictures {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     margin: 10px;
 }
-#content-buttons s-ripple {
+/* 这个动画...累似我了，回头一定要给Sober提Issue！！！ */
+.picture-group {
+    max-width: none;
+    max-height: none;
+    margin-bottom: 10px;
+    border-radius: 20px;
+}
+.picture-group .sub-pictures-container {
+    display: grid;
+    grid-template-rows: 1fr;
+    overflow: hidden;
+    transition-duration: 0.5s;
+}
+.picture-group:not(.open) .sub-pictures-container {
+    grid-template-rows: 0fr;
+}
+.picture-group .picture-group-title {
+    border-radius: 20px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+}
+.picture-group .sub-pictures {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 6px 10px;
+    min-height: 0;
+}
+.picture-group:not(.open) .sub-pictures {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.picture {
     margin: 10px 4px;
     padding: 30px 40px;
     min-width: 300px;
