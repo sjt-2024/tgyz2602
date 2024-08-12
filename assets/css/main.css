@@ -18,6 +18,13 @@ s-bottom-sheet>div {
     padding: 10px;
     min-height: 200px;
 }
+.big-title {
+    font-size: xx-large;
+    font-weight: bold;
+    color: var(--s-color-primary);
+    padding: 40px 60px;
+    text-align: center;
+}
 
 #tooltips {
     position: fixed;
@@ -103,13 +110,6 @@ s-bottom-sheet>div {
     display: none;
 }
 
-#big-title {
-    font-size: xx-large;
-    font-weight: bold;
-    color: var(--s-color-primary);
-    padding: 40px 60px;
-    text-align: center;
-}
 #home-cards {
     display: grid;
     columns: auto;
@@ -208,16 +208,9 @@ s-bottom-sheet>div {
     object-fit: contain;
 }
 
-.developer-list-page {
+#page-developers {
     padding: 20px;
     text-align: center;
-}
-
-#developer-list-title {
-    font-size: xx-large;
-    font-weight: bold;
-    color: var(--s-color-primary);
-    margin-bottom: 20px;
 }
 
 #developer-list {
@@ -227,23 +220,19 @@ s-bottom-sheet>div {
     align-items: center; /* Center the content horizontally */
 }
 
-.developer {
-    padding: 15px 30px; /* Add padding to ensure space around the text */
-    border-radius: 10px;
-    background-color: var(--s-color-surface-container);
-    box-shadow: var(--s-elevation-level1, 0 3px 1px -2px rgba(0, 0, 0, .2), 0 2px 2px 0 rgba(0, 0, 0, .14), 0 1px 5px 0 rgba(0, 0, 0, .12));
-    width: 80%; /* Ensure that the container doesn't stretch across the entire width */
-    max-width: 600px; /* Set a maximum width for larger screens */
-    box-sizing: border-box;
-    text-align: center; /* Center the text within each container */
+#developer-list>s-card {
+    padding: 15px 30px;
+    width: 80%;
+    max-width: 600px;
+    text-align: center;
 }
 
-.developer .name {
+#developer-list>s-card>.name {
     font-size: large;
     font-weight: bold;
 }
 
-.developer .role {
+#developer-list>s-card>.role {
     font-size: medium;
     color: var(--s-color-secondary);
 }

@@ -19,6 +19,34 @@ function randint(maxNum, minNum) {
     }
 }
 
+/**
+ * 获取URL参数
+ * @param {string} key
+ */
+function getUrlParam(key) {
+    let usp = new URLSearchParams(window.location.search);
+    return usp.get(key);
+}
+/**
+ * 设置URL参数
+ * @param {string} key
+ * @param {string} value
+ */
+function setUrlParam(key, value) {
+    let usp = new URLSearchParams(window.location.search);
+    usp.set(key, value);
+    history.pushState('', '', '?' + usp.toString());
+}
+/**
+ * 删除URL参数
+ * @param {string} key
+ */
+function deleteUrlParam(key) {
+    let usp = new URLSearchParams(window.location.search);
+    usp.delete(key);
+    history.pushState('', '', '?' + usp.toString());
+}
+
 var pageEl = document.querySelector('s-page');
 
 var currentSemester = 0;
@@ -29,6 +57,8 @@ document.addEventListener('DOMContentLoaded', function () {
         fullscreenLoadingTip.open('组件库未成功加载。请检查网络连接，然后重试');
         return;
     }
+    gotoPage(getUrlParam('page'));
+    setTheme(getUrlParam('theme'));
     let navEl = document.getElementById('nav');
     for (let element of navEl.children) {
         if (element.tagName.toLowerCase() == 's-ripple') {
@@ -38,12 +68,15 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         }
     }
-    navEl.children[0].click();
-    fullscreenLoadingTip.close();
 });
 
 function gotoPage(name) {
     let pagesContainerEl = document.getElementById('pages-container');
+    let pageEl = document.getElementById('page-' + name);
+    if (!pageEl) {
+        gotoPage('home');
+        return;
+    }
     for (let element of pagesContainerEl.children) {
         element.classList.remove('active');
     }
@@ -58,7 +91,8 @@ function gotoPage(name) {
             }
         }
     }
-    document.getElementById('page-' + name).classList.add('active');
+    pageEl.classList.add('active');
+    setUrlParam('page', name);
     // 单独处理某些页面
     switch (name) {
         case 'home':
@@ -141,42 +175,45 @@ function mainTabChanged() {
     }
 }
 
-var fullscreenLoadingTip = {
-    open: function (text = undefined) {
-        if (text) {
-            this.setInnerText(text);
-        }
-        document.getElementById('fullscreen-loading-tip').classList.remove('done');
-    },
-    close: function () {
-        document.getElementById('fullscreen-loading-tip').classList.add('done');
-    },
-    setInnerText: function (text) {
-        if (typeof text === 'string') {
-            document.getElementById('fullscreen-loading-tip').innerText = text;
-        }
-    },
-    setInnerHTML: function (html) {
-        if (typeof html === 'string') {
-            document.getElementById('fullscreen-loading-tip').innerHTML = html;
-        }
-    },
-};
-
 function themePickerChanged() {
     let themePickerEl = document.getElementById('theme-picker');
     switch (themePickerEl.selectedIndex) {
         case 0:
-            pageEl.theme = 'auto';
+            setTheme('auto')
             break;
         case 1:
-            pageEl.theme = 'light';
+            setTheme('light');
             break;
         case 2:
-            pageEl.theme = 'dark';
+            setTheme('dark');
             break;
         default:
             break;
+    }
+}
+
+function setTheme(theme) {
+    let themes = ['auto', 'light', 'dark'];
+    if (themes.includes(theme)) {
+        pageEl.theme = theme;
+        setUrlParam('theme', theme);
+        let themePickerEl = document.getElementById('theme-picker');
+        let i = 0;
+        for (let child of themePickerEl.children) {
+            if (child.tagName.toLowerCase() == 's-picker-item') {
+                if (i == themes.indexOf(theme)) {
+                    child.selected = true;
+                }
+                else {
+                    child.selected = false;
+                }
+                i++;
+            }
+        }
+        // themePickerEl.children[themes.indexOf(theme)].selected = true;
+    }
+    else {
+        setTheme('auto');
     }
 }
 
@@ -209,4 +246,6 @@ function coolButtons(buttonsEl) {
 
 function showDeveloperList() {
     gotoPage('developers');
+    // Sober没提供方法，只能自己来了
+    document.getElementById('info-sheet').shadowRoot.querySelector('.wrapper').classList.remove('show');
 }
