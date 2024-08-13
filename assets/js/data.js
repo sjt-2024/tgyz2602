@@ -6,12 +6,12 @@ var data = {
                     name: '七年级',
                     groups: [
                         {
-                            title: 'Test',
-                            pictures: [
+                            title: 'Test', // 标题
+                            pictures: [ // 图片列表
                                 {
-                                    title: 'Test Picture',
-                                    filename: 'test_picture_1.png',
-                                    description: 'This is a test picture.'
+                                    title: 'Test Picture', // 标题
+                                    filename: 'test_picture_1.png', // 对于img文件夹的路径或HTTP(S)网址
+                                    description: 'This is a test picture.' // 介绍
                                 },
                                 {
                                     title: 'Test 2 - Minecraft Wallpaper',
@@ -96,6 +96,12 @@ Never gonna run around and desert you
 Never gonna make you cry
 Never gonna say goodbye
 Never gonna tell a lie and hurt you`
+        }
+    },
+    appearance: {
+        background: {
+            image: './img/background.png',
+            blur: '2px'
         }
     }
 };

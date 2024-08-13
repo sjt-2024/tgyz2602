@@ -60,6 +60,8 @@ document.addEventListener('DOMContentLoaded', function () {
     }
     gotoPage(getUrlParam('page'));
     setTheme(getUrlParam('theme'));
+    pageEl.style.setProperty('background-image', data.appearance.background.image == 'none' ? 'none' : `url('${data.appearance.background.image}')`);
+    pageEl.style.setProperty('--background-blur', data.appearance.background.blur);
     let navEl = document.getElementById('nav');
     for (let element of navEl.children) {
         if (element.tagName.toLowerCase() == 's-ripple') {

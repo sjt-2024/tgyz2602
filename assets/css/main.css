@@ -35,6 +35,12 @@ s-bottom-sheet>div {
     overflow: hidden;
 }
 
+s-page {
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+}
+
 #fullscreen-loading-tip {
     position: fixed;
     top: 0;
@@ -98,6 +104,8 @@ s-bottom-sheet>div {
 #main-content {
     display: flex;
     flex-direction: column;
+    -webkit-backdrop-filter: blur(var(--background-blur, 0px));
+    backdrop-filter: blur(var(--background-blur, 0px));
 }
 #pages-container {
     overflow: hidden;
@@ -151,6 +159,10 @@ s-bottom-sheet>div {
     min-height: 200px !important;
 }
 
+#page-pictures {
+    display: flex;
+    flex-direction: column;
+}
 #main-tab * {
     font-size: large;
 }
@@ -225,7 +237,6 @@ s-bottom-sheet>div {
     flex: 1;
     display: flex;
     flex-direction: column;
-    overflow: hidden;
 }
 #picture-view-image-wrapper {
     width: 100%;

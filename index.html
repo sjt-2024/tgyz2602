@@ -108,7 +108,7 @@
                             </s-tab>
                             <s-scroll-view id="tab-content">
                                 <div id="none-text">-- NONE --</div>
-                                <div id="pictures">
+                                <s-scroll-view id="pictures">
                                     <s-card class="picture-group" type="outlined">
                                         <s-ripple class="picture-group-title">
                                             <div class="headline">title</div>
@@ -123,7 +123,7 @@
                                             </div>
                                         </div>
                                     </s-card>
-                                </div>
+                                </s-scroll-view>
                             </s-scroll-view>
                         </div>
                         <!-- 开发者名单 -->
@@ -151,12 +151,12 @@
             <div id="tooltips">
                 <s-dialog id="picture-view-dialog" size="full" ondismiss="pictureViewDialogClosed()">
                     <div slot="headline" id="picture-view-title">图片查看</div>
-                    <div slot="text" id="picture-view-content">
+                    <s-scroll-view slot="text" id="picture-view-content">
                         <div id="picture-view-image-wrapper">
                             <img id="picture-view-image" src="" alt="Image" />
                         </div>
-                    <div id="picture-view-description"></div>
-                    </div>
+                        <div id="picture-view-description"></div>
+                    </s-scroll-view>
                     <s-button slot="action" type="text" onclick="downloadPicture(); event.stopPropagation()">下载</s-button>
                     <s-button slot="action" type="text">完成</s-button>
                 </s-dialog>
