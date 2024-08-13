@@ -19,6 +19,16 @@ var data = {
                                     description: '用HTTP/HTTPS来使用外部图片。'
                                 }
                             ]
+                        },
+                        {
+                            title:'安全着陆',
+                            pictures: [
+                                {
+                                    title: '安全着陆',
+                                    filename:'https://img1.kuwo.cn/star/albumcover/300/12/24/1275053320.jpg',
+                                    description: '二人赚'
+                                }
+                            ]
                         }
                     ]
                 },{
@@ -70,32 +80,14 @@ var data = {
         summary: {
             title: '班级简介',
             content: 
-`测试文本测试文本
-
-We're no strangers to love
-You know the rules and so do I
-A full commitment's what I'm thinking of
-You wouldn't get this from any other guy
-I just wanna tell you how I'm feeling
-Gotta make you understand
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you
-We've known each other for so long
-Your heart's been aching but you're too shy to say it
-Inside we both know what's been going on
-We know the game and we're gonna play it
-And if you ask me how I'm feeling
-Don't tell me you're too blind to see
-Never gonna give you up
-Never gonna let you down
-Never gonna run around and desert you
-Never gonna make you cry
-Never gonna say goodbye
-Never gonna tell a lie and hurt you`
+`你应该知道,我们这么独特只会出现在2班,
+ 要想明白你是否适合热闹的2班.
+ 我们知道学习之路少不了困难,
+ 但你放心我们会努力攻克下难关!
+ 书山是我们常去的俱乐部,
+ 只要拿起笔就从不知疲倦度.
+ 每天学习少不了艰苦,
+ 我们从不会对吃苦说不!`
         }
     },
     appearance: {
